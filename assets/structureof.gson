@@ -1,0 +1,14 @@
+# single line comment
+
+obj name:
+{
+    str: "string value"
+    num: numerical value
+    obj:
+    {
+        str: value
+        ...
+    }
+}
+
+; is end of file

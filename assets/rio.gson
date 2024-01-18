@@ -1,0 +1,10 @@
+# the film rio as a .gson file
+
+film:
+{
+    name: "rio"
+    released: 2011
+}
+
+# end of file
+;

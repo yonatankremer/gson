@@ -1,16 +1,27 @@
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
 
-#include "gsonHandler.c"
-#include "gsonObj.c"
-#include "tokenization/tokenizer.c"
+#ifndef MAX_FILE_LENGTH
+#include "maxFileLength.h"
+#endif
+
+#ifndef BUFFER_SIZE
+#include "buffer.h"
+#endif
+
+#ifndef TOKEN_H
+#include "tokenization/tokenizer.h"
+#endif
+
+#include "arg.h"
+#include "gsonHandler.h"
 
 int main(int argc, char **argv)
 {
-    char filename[100];
-    strcpy(filename, "assets/");
-    strcat(filename, argv[1]);
+    char filename[MAX_FILE_LENGTH];
 
+    getArg(argv[1]);
+    strcpy(filename, argv[1]);
 
     FILE *pFile = readFile(filename);
     char buffer[BUFFER_SIZE];

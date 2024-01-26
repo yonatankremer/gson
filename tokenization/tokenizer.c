@@ -16,7 +16,6 @@ token charToToken(char c, int isIntString)
         case '{': return OBJ_START;
         case '}': return OBJ_END;
 
-        case ';': return END_OF_FILE;
 
         default:
             if (isIntString)
@@ -41,7 +40,6 @@ char tokenToChar(token t)
         case OBJ_START: return '{';
         case OBJ_END: return '}';
 
-        case END_OF_FILE: return ';';
 
         case IDENTIFIER: return 'i';
         case STR_CONTENT: return 'c';
@@ -53,9 +51,9 @@ char tokenToChar(token t)
 void tokensToStr(token tokens[], char str[])
 {
     int i;
-    for (i=0; tokens[i] != END_OF_FILE; i++)
+    for (i=0; tokens[i] != EOF; i++)
         str[i] = tokenToChar(tokens[i]);
-    str[++i] = tokenToChar(END_OF_FILE);
+    str[++i] = tokenToChar(EOF);
 }
 
 void strToTokens(token tokens[], char str[])
@@ -63,7 +61,7 @@ void strToTokens(token tokens[], char str[])
     int isInString = 0;
     int i = 0;
 
-    for (i=0; str[i] != ';'; i++)
+    for (i=0; str[i] != EOF; i++)
     {
         if (str[i] == '\"')
             isInString = (isInString == 0) ? 1 : 0;
@@ -71,7 +69,7 @@ void strToTokens(token tokens[], char str[])
         tokens[i] = charToToken(str[i], isInString);
     }
 
-    tokens[++i] = END_OF_FILE;
+    tokens[++i] = EOF;
 }
 
 void printTokens(token tokens[])
@@ -79,7 +77,7 @@ void printTokens(token tokens[])
     char str[BUFFER_SIZE];
     tokensToStr(tokens, str);
 
-    for(int i=0; tokens[i] != END_OF_FILE; i++)
+    for(int i=0; tokens[i] != EOF; i++)
         if (str[i] == 'S')
             printf(" ");
         else if (str[i] == 'N')

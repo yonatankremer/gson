@@ -1,11 +1,18 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#define BUFFER_SIZE 1024
 
+#ifndef ERROR_H
+#include "errorHandling/errorHandler.h"
+#endif
+
+#ifndef BUFFER_SIZE
+#include "buffer.h"
+#endif
 
 FILE *readFile(char filename[]);
-int isGson(char filename[]);
+
+ERROR isGson(char filename[]);
+ERROR validateFile(FILE *pFile);
+
 void writeToBuffer(FILE *pFile, char buffer[]);
 void printFile(FILE *pFile);
 void removeComments(char with[], char without[]);

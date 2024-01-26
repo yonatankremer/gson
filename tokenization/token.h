@@ -1,4 +1,8 @@
-typedef enum token
+#ifndef TOKEN_H
+#define TOKEN_H
+#endif
+
+typedef enum
 {
     COMMENT, //(#)
     LINEBREAK, // (\n)
@@ -11,7 +15,6 @@ typedef enum token
     OBJ_START, // ({)
     OBJ_END, // (})
 
-    END_OF_FILE, // (;)
 
     IDENTIFIER, //variable name
     STR_CONTENT // ("some things")

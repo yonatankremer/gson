@@ -3,7 +3,12 @@
         "*.c": "c",
         "stdio.h": "c",
         "stdlib.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "errorhandler.h": "c",
+        "buffer.h": "c",
+        "maxfilelength.h": "c",
+        "error.h": "c",
+        "gsonhandler.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "git.ignoreLimitWarning": true

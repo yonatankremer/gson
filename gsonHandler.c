@@ -1,41 +1,40 @@
+#include <stdio.h>
+#include <string.h>
 #include "gsonHandler.h"
-
-
 
 //reads a file using stdio; crashes if not .gson
 FILE *readFile(char filename[])
 {
-    if (!isGson(filename))
-    {
-        printf("file '%s' isn't a .gson file.\nCrashing.\n", filename);
-        abort();
-    }
+    errorHandler(isGson(filename), 1, filename);
 
     FILE *pFile = fopen(filename, "r");
 
-    if (pFile == NULL)
-    {
-        printf("there is no file named %s", filename);
-        abort();
-    }
+    errorHandler(validateFile(pFile), 1, filename);
 
     return pFile;
 
 }
 
-int isGson(char filename[])
+ERROR isGson(char filename[])
 {
     char gson[] = ".gson";
-    int extLength = strlen(gson) + 1; //to make up for '\0' character
-    int filenameLength = strlen(filename) + 1;
+    int extLength = strlen(gson);
+    int filenameLength = strlen(filename);
 
     int extStartIndex = filenameLength - extLength;
 
     for (int i=0; i<extLength; i++)
         if (gson[i] != filename[extStartIndex + i])
-            return 0;
-    return 1;
+            return EXT_NOT_GSON;
+    return NONE;
 
+}
+
+ERROR validateFile(FILE *pFile)
+{
+    if (pFile == NULL)
+        return NAME_DOES_NOT_EXIST;
+    return NONE;
 }
 
 void writeToBuffer(FILE *pFile, char buffer[])
@@ -79,7 +78,7 @@ int bufferLength(char buffer[])
 {
     int i = 0;
 
-    while (buffer[i] != ';')
+    while (buffer[i] != EOF)
         i++;
     
     return i+2;
@@ -91,7 +90,7 @@ int nextLineBreak(char str[], int startIdx)
     int i;
 
     for (i = startIdx; str[i] != '\n'; i++)
-        if (str[i] == ';')
+        if (str[i] == EOF)
             return BUFFER_SIZE;
     return i - startIdx;
 }
